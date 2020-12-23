@@ -27,6 +27,7 @@
     * Creating Prodicate Service, Object mapping
 * 7:30 AM
     * Creating Dropdown component
+    * wiring redux store
 
 ### `npm start`
 

@@ -24,8 +24,9 @@
     * react project initial build
     * project planning (layout, ui components, data structure)
 * 6:50 AM
-    * Creating Prodicate Service
-    * Creating Prodicate Object
+    * Creating Prodicate Service, Object mapping
+* 7:30 AM
+    * Creating Dropdown component
 
 ### `npm start`
 

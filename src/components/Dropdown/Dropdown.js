@@ -71,22 +71,8 @@ class Dropdown extends Component {
         return <select>{options}</select>
     }
 
-    getCustomSelect(){
-        const items = this.getOptions();
-        return (
-            <div className={styles.selectWrapper}>
-                <div className={styles.selectedItem} onClick={this.onSelectClick}>
-                    <span>{this.state.selected || "Select"}</span>
-                </div>
-                <div className={styles.optionWrapper}>
-                    {this.state.open && <ul>{items}</ul>}
-                </div>
-            </div>
-        )
-    }
-
     render(){
-        const select = this.getCustomSelect();
+        const select = this.getSelectHtmlTemplate();
         return (
             <div ref={this.ref} className={styles.dropdown}>
                 <div className={styles.selectWrapper}>

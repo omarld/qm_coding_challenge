@@ -1,6 +1,31 @@
 
 ### Notes
 
+* Mapped Predicate to type and condition
+    * 'between' needs 'is' and 'and' additional conditions
+* Added Redux
+* SQL Object
+    * Predicate
+    * Clause : Object with an arrays of conditions
+        * Conditions []
+            * Operator
+* Using Flex CSS
+    * Each item within row is content justified to space between
+* Service
+    * return list of available predicates along with its corresponding types 
+
+### Questions
+1.
+
+### Time Tracking
+**12/23/2020**
+* 6 AM Initial Requirements Review
+* 6:30 AM 
+    * react project initial build
+    * project planning (layout, ui components, data structure)
+* 6:50 AM
+    * Creating Prodicate Service
+    * Creating Prodicate Object
 
 ### `npm start`
 

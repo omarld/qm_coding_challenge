@@ -3,9 +3,13 @@ import SessionSearch from 'components/SessionSearch';
 
 function App() {
   return (
-    <div className="App">
-      <h1>QM Coding Challenge</h1>
-      <SessionSearch />
+    <div className="App" aria-label="">
+      <header>
+        <h1>Search for Sessions</h1>
+      </header>
+      <main>
+        <SessionSearch />
+      </main>
     </div>
   );
 }

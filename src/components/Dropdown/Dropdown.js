@@ -15,7 +15,7 @@ class Dropdown extends Component {
         }
 
         this.ref = React.createRef();
-        this.onSelectClick = this.onSelectClick.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
         this.onSelectHandler = this.onSelectHandler.bind(this);
         this.onClickOutside = this.onClickOutside.bind(this);
     }
@@ -31,6 +31,9 @@ class Dropdown extends Component {
         }
 
         this.props.dispatchSelected(value);
+        if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
+            this.props.onSelectHanlder(value);
+        }
 
         this.setState({
             selected: value,
@@ -44,7 +47,7 @@ class Dropdown extends Component {
         }
 
         return this.props.options.map((option, index) =>{
-            return <Option key={index} onSelectHandler={this.onSelectHandler} option={option}/>
+            return <Option key={option.key || index} onSelectHandler={this.onSelectHandler} option={option}/>
         });
     }
 
@@ -57,18 +60,26 @@ class Dropdown extends Component {
         this.setState({open: false});
     }
 
-    onSelectClick(event){
+    // onSelectClick(event){
+    //     event.preventDefault();
+    //     const tempOpen = !this.state.open;
+    //     if(tempOpen) {
+    //         document.addEventListener("mousedown", this.onClickOutside);
+    //     }
+    //     this.setState({open:!this.state.open});
+    // }
+
+    onSelectChange(event){
         event.preventDefault();
-        const tempOpen = !this.state.open;
-        if(tempOpen) {
-            document.addEventListener("mousedown", this.onClickOutside);
+        const value = event.target.value;
+        if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
+            this.props.onSelectHandler(value);
         }
-        this.setState({open:!this.state.open});
     }
 
     getSelectHtmlTemplate(){
         const options = this.getOptions();
-        return <select>{options}</select>
+        return <select onChange={this.onSelectChange}>{options}</select>
     }
 
     render(){

@@ -4,8 +4,8 @@ export const PREDICATE_TYPES = {
 }
 
 export const PREDICATES = {
-    USER_EMAIL: { 
-        value: "User Email",
+    DOMAIN: { 
+        value: "Domain",
         type: PREDICATE_TYPES.STRING
     },
     SCREEN_WIDTH: { 
@@ -36,8 +36,8 @@ export const PREDICATES = {
         value: "Page Response Time (ms)",
         type: PREDICATE_TYPES.NUMERIC
     },
-    DOMAIN: {
-        value: "Domain",
+    USER_EMAIL: {
+        value: "User Email",
         type: PREDICATE_TYPES.STRING
     },
     PAGE_PATH: { 

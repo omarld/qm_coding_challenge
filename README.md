@@ -28,6 +28,16 @@
 * 7:30 AM
     * Creating Dropdown component
     * wiring redux store
+    * Created Main Session Search component, and imported Dropdown Component (basic wiring)
+* 8:10 AM Stopped
+
+**12/24/2020**
+* 6:05 AM Building Session Search Layout
+    * 6:15 AM Row Component
+
+NEXT
+* Adding redux devtools extension
+* Create Session Search Layout
 
 ### `npm start`
 

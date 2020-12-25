@@ -15,7 +15,8 @@ class Dropdown extends Component {
         }
 
         this.ref = React.createRef();
-        this.onSelectChange = this.onSelectChange.bind(this);
+        this.onSelectClick = this.onSelectClick.bind(this);
+        // this.onSelectChange = this.onSelectChange.bind(this);
         this.onSelectHandler = this.onSelectHandler.bind(this);
         this.onClickOutside = this.onClickOutside.bind(this);
     }
@@ -32,7 +33,7 @@ class Dropdown extends Component {
 
         this.props.dispatchSelected(value);
         if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
-            this.props.onSelectHanlder(value);
+            this.props.onSelectHandler(value);
         }
 
         this.setState({
@@ -41,15 +42,17 @@ class Dropdown extends Component {
         });
     }
 
-    getOptions() {
-        if(!this.props || !this.props.options){
-            return null;
-        }
+    // getOptions() {
+    //     if(!this.props || !this.props.options){
+    //         return null;
+    //     }
 
-        return this.props.options.map((option, index) =>{
-            return <Option key={option.key || index} onSelectHandler={this.onSelectHandler} option={option}/>
-        });
-    }
+    //     return this.props.options.map((option, index) =>{
+    //         return <Option key={option.key || index} onSelectHandler={this.onSelectHandler} option={option}/>
+    //     });
+    // }
+
+
 
     onClickOutside(event){
         //check that select is not the ref being clicked
@@ -69,25 +72,58 @@ class Dropdown extends Component {
     //     this.setState({open:!this.state.open});
     // }
 
-    onSelectChange(event){
+    // onSelectChange(event){
+    //     event.preventDefault();
+    //     const value = event.target.value;
+    //     if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
+    //         this.props.onSelectHandler(value);
+    //     }
+    // }
+
+    // getSelectHtmlTemplate(){
+    //     const options = this.getOptions();
+    //     return <select className={styles.selectMain} onChange={this.onSelectChange}>{options}</select>
+    // }
+
+    onSelectClick(event){
         event.preventDefault();
-        const value = event.target.value;
-        if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
-            this.props.onSelectHandler(value);
+        const tempOpen = !this.state.open;
+        if(tempOpen) {
+            document.addEventListener("mousedown", this.onClickOutside);
         }
+        this.setState({open:!this.state.open});
     }
 
-    getSelectHtmlTemplate(){
-        const options = this.getOptions();
-        return <select onChange={this.onSelectChange}>{options}</select>
+    getItems() {
+        if(!this.props || !this.props.options){
+            return null;
+        }
+
+        return this.props.options.map((option, index) =>{
+            return <Option key={option.key || index} onSelectHandler={this.onSelectHandler} option={option}/>
+        });
+    }
+
+    renderSelect(){
+        const items = this.getItems();
+        return (
+            <div className={styles.selectWrapper}>
+                <div className={styles.selectedItem} onClick={this.onSelectClick}>
+                    <span>{this.state.selected || "Select"}</span>
+                </div>
+                <div className={styles.optionWrapper}>
+                    {this.state.open && <ul>{items}</ul>}
+                </div>
+            </div>
+        )
     }
 
     render(){
-        const select = this.getSelectHtmlTemplate();
+        const select = this.renderSelect();
         return (
-            <div ref={this.ref} className={styles.dropdown}>
-                <div className={styles.selectWrapper}>
-                    {select}
+            <div ref={this.ref} className={styles.dropdownMain}>
+                <div>
+                    <ul>{select}</ul>
                 </div>
             </div>
         )

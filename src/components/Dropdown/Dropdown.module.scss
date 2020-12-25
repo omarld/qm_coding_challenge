@@ -1,0 +1,15 @@
+@import 'styles/main.scss';
+
+.dropdownMain {
+
+}
+
+.selectMain {
+    appearance: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: $font-weight;
+    font-size: $font-size;
+    padding: 5px;
+    border-color: $border-color-dark;
+    border-radius: 5px;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Row from 'components/Row/Row';
+import styles from './SessionSearch.module.scss';
 
 import { getAllConditions } from 'Services/SqlService';
 
@@ -12,7 +13,7 @@ export class SessionSearch extends Component {
     render() {
         const conditions = getAllConditions()
         return (
-            <section aria-label="search fields">
+            <section className={styles.mainContent} aria-label="search fields">
                 <Row conditions={conditions}/>
             </section>
         )

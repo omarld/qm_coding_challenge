@@ -9,7 +9,7 @@ const appReducer = (state= intialState, action) =>{
 
     switch(type){
         case "SELECTED_OPTION":
-            console.log("value selected is: " + action.value);
+            console.log("value selected is from redux: " + action.value);
             return {
                 ...state,
                 selectedOption: action.value

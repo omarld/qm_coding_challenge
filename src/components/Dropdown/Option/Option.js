@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Options.module.scss';
 
 const Option = (props) =>{
 
@@ -6,12 +7,12 @@ const Option = (props) =>{
 
     const onClickHandler = (event) => {
         event.preventDefault();
-        const value = event.currentTarget.value || null;
+        const value = event.target.innerText || null;
         onSelectHandler(value);
     }
 
     return (
-        <option onClick={onClickHandler}>{option.value}</option>
+        <li className={styles.optionMain} onClick={onClickHandler}>{option.value}</li>
     );
 }
 

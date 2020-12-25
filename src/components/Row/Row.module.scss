@@ -1,5 +1,8 @@
+@import 'styles/main.scss';
+
 
 .mainRow {
+    border: 1px solid $border-color;
     display: flex;
     justify-content: space-between;
     padding: 20px;

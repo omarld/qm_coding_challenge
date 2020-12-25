@@ -1,6 +1,6 @@
 export const PREDICATE_TYPES = {
-    STRING: "string",
-    NUMERIC: "numeric"
+    STRING: "text",
+    NUMERIC: "number"
 }
 
 export const PREDICATES = {

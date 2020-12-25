@@ -14,14 +14,11 @@ export const Row = (props) =>{
         console.log("value selected: " + value)
     }
 
-    const prePostConditionTemplate = (preCondition, postCondition) =>{
+    const prePostConditionTemplate = (preCondition, postCondition, type) =>{
         return (
             <div>
-                <span> it has precondition: {preCondition}</span>
-                <span>dropdown of operators here depending on type </span>
-                <input placeholder="some input" type="string"/>
-                <span> it has postcondition: {postCondition} </span>
-                <input placeholder="some other input" type="string"/>
+                <input placeholder="some input" type={type}/>
+                <input placeholder="some other input" type={type}/>
             </div>  
         )
     }
@@ -42,7 +39,7 @@ export const Row = (props) =>{
             </div>
             <div className="precond">
                 {(selectedOperator && selectedOperator.preCondition) ? 
-                    prePostConditionTemplate(selectedOperator.preCondition, selectedOperator.postCondition) 
+                    prePostConditionTemplate(selectedOperator.preCondition, selectedOperator.postCondition, selectedCondition.type) 
                     : defaultInputTemplate()
                 }
             </div>

@@ -33,7 +33,13 @@
 
 **12/24/2020**
 * 6:05 AM Building Session Search Layout
-    * 6:15 AM Row Component
+    * 6:15 AM Row Component layout
+    * Dropdown select detection
+* 8 AM Stopped 
+
+**12/25/2020**
+* 6:10 AM Conitued Building Layout
+* 6:40 AM Adding Styles to Main App, Row and Dropdown
 
 NEXT
 * Adding redux devtools extension

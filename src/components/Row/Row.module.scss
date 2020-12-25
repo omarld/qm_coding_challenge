@@ -3,6 +3,7 @@
 
 .mainRow {
     border: 1px solid $border-color;
+    flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
     padding: 20px;
@@ -10,4 +11,13 @@
 
 .remove {
     margin-right: 5px;
+}
+
+.prePostCondition {
+    display: inline-block;
+    width: 35px;
+    background-color: $background-color-dark;
+    border: 1px solid #a5a5a5;
+    border-radius: 5px;
+    padding: 8px;
 }

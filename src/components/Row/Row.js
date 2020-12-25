@@ -16,7 +16,10 @@ export const Row = (props) =>{
 
     const prePostConditionTemplate = (condition, type) =>{
         return (
-            <input placeholder="some input" type={type}/>
+            <div>
+                {condition && <span className={styles.prePostCondition}>{condition}</span> }
+                {!condition && <input placeholder="some input" type={type}/> }
+            </div>
         )
     }
 
@@ -32,9 +35,17 @@ export const Row = (props) =>{
                 prePostConditionTemplate(selectedOperator.preCondition, selectedCondition.type) 
                 : null
             }
+            {(selectedOperator && selectedOperator.preCondition) ? 
+                prePostConditionTemplate() 
+                : null
+            }
             <input placeholder="always input" type={selectedCondition.type}/>
             {(selectedOperator && selectedOperator.postCondition) ? 
                 prePostConditionTemplate(selectedOperator.postCondition, selectedCondition.type) 
+                : null
+            }
+            {(selectedOperator && selectedOperator.postCondition) ? 
+                prePostConditionTemplate() 
                 : null
             }
         </div>

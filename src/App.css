@@ -57,5 +57,9 @@ input {
 }
 
 ul {
+  margin: 0;
+  padding: 0;
   list-style-type: none;
+  border: 1px solid #e3f2fd;
+  border-radius: 5px;
 }

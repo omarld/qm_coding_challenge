@@ -107,7 +107,7 @@ class Dropdown extends Component {
     renderSelect(){
         const items = this.getItems();
         return (
-            <div className={styles.selectWrapper}>
+            <div className={styles.selectMain}>
                 <div className={styles.selectedItem} onClick={this.onSelectClick}>
                     <span>{this.state.selected || "Select"}</span>
                 </div>
@@ -122,9 +122,7 @@ class Dropdown extends Component {
         const select = this.renderSelect();
         return (
             <div ref={this.ref} className={styles.dropdownMain}>
-                <div>
-                    <ul>{select}</ul>
-                </div>
+                {select}
             </div>
         )
     }    

@@ -7,8 +7,7 @@ const Option = (props) =>{
 
     const onClickHandler = (event) => {
         event.preventDefault();
-        const value = event.target.innerText || null;
-        onSelectHandler(value);
+        onSelectHandler(option);
     }
 
     return (

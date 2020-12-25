@@ -40,6 +40,7 @@
 **12/25/2020**
 * 6:10 AM Conitued Building Layout
 * 6:40 AM Adding Styles to Main App, Row and Dropdown, styling custom u li
+* 8 AM adding Predicate Change selection handler to update UI
 
 NEXT
 * Adding redux devtools extension

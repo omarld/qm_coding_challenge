@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropdown from 'components/Dropdown/Dropdown';
 
 import styles from './Row.module.scss';
 
+import {getConditionByKey} from 'Services/SqlService';
+
 export const Row = (props) =>{
     const { conditions } = props;
 
-    const firstCondition = conditions[0];
-    const [selectedCondition, setSelectedCondition] = useState(firstCondition);
-    const [selectedOperator, setSelectedOperator] = useState(firstCondition.operators[0]);
+    const [selected, setSelected] = useState({});
 
-    const onSelectHandler = (value) =>{
-        console.log("value selected: " + value)
+    useEffect(() =>{
+        const selected = {
+            condition: conditions[0],
+            selectedOperator: conditions[0].operators[0],
+            operators: conditions[0].operators
+        }
+        setSelected(selected);
+    }, []);
+
+    const onSelectHandler = (item) =>{
+        const condition = getConditionByKey(item.key);
+        const selected = {
+            condition,
+            selectedOperator: condition.operators[0],
+            operators: condition.operators
+        }
+        setSelected(selected);
     }
 
-    const prePostConditionTemplate = (condition, type) =>{
+    const renderPrePostConditionTemplate = (condition, type) =>{
         return (
             <div>
                 {condition && <span className={styles.prePostCondition}>{condition}</span> }
@@ -23,31 +38,49 @@ export const Row = (props) =>{
         )
     }
 
+    const onOperatorSelectHandler = (item) =>{
+        console.log(item);
+        const temp = {
+            ...selected,
+            selectedOperator: item
+        }
+        console.log(temp);
+        setSelected(temp);
+    }
+
     return(
         <div className={styles.mainRow}>
             <div className={styles.remove}>X</div>
             <div>
                 <Dropdown 
                     options={conditions} 
+                    defaultSelectedIndex={0}
                     onSelectHandler={onSelectHandler}/>
             </div>
-            {(selectedOperator && selectedOperator.preCondition) ? 
-                prePostConditionTemplate(selectedOperator.preCondition, selectedCondition.type) 
+            {(selected.selectedOperator && selected.selectedOperator.preCondition) ? 
+                renderPrePostConditionTemplate(selected.selectedOperator.preCondition, selected.condition.type) 
                 : null
             }
-            {(selectedOperator && selectedOperator.preCondition) ? 
-                prePostConditionTemplate() 
+            {(selected.operators && selected.operators.preCondition) ? 
+                renderPrePostConditionTemplate() 
                 : null
             }
-            <input placeholder="always input" type={selectedCondition.type}/>
-            {(selectedOperator && selectedOperator.postCondition) ? 
-                prePostConditionTemplate(selectedOperator.postCondition, selectedCondition.type) 
+            <Dropdown
+                options={selected.operators}
+                defaultSelectedIndex={0}
+                onSelectHandler={onOperatorSelectHandler}/>
+                
+            {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
+                renderPrePostConditionTemplate(selected.selectedOperator.postCondition, selected.condition.type) 
                 : null
             }
-            {(selectedOperator && selectedOperator.postCondition) ? 
-                prePostConditionTemplate() 
+            {(selected.operators && selected.operators.postCondition) ? 
+                renderPrePostConditionTemplate() 
                 : null
             }
+
+            {selected.condition && <input placeholder="always input" type={selected.condition.type}/> }
+            
         </div>
     )
 }

@@ -21,23 +21,40 @@ class Dropdown extends Component {
         this.onClickOutside = this.onClickOutside.bind(this);
     }
 
+    componentDidMount() {
+        if(!this.selected &&  this.props.defaultSelectedIndex >= 0 && this.props.options && this.props.options.length){
+            this.setState({
+                selected: this.props.options[this.props.defaultSelectedIndex].value
+            });
+        }
+    }
+
+    componentDidUpdate(prevProp) {
+        if(prevProp.defaultSelectedIndex !== this.props.defaultSelectedIndex || 
+            prevProp.options !== this.props.options){
+            this.setState({
+                selected: this.props.options[this.props.defaultSelectedIndex].value
+            });
+        }
+    }
+
     componentWillUnmount(){
         document.removeEventListener("mousedown", this.onClickOutside);
     }
     
-    onSelectHandler(value){
+    onSelectHandler(option){
         const tempOpen = !this.state.open;
         if(!tempOpen) {
             document.removeEventListener("mousedown", this.onClickOutside);
         }
 
-        this.props.dispatchSelected(value);
+        this.props.dispatchSelected(option);
         if(this.props.onSelectHandler && typeof this.props.onSelectHandler === "function"){
-            this.props.onSelectHandler(value);
+            this.props.onSelectHandler(option);
         }
 
         this.setState({
-            selected: value,
+            selected: option.value,
             open: !this.state.open
         });
     }
@@ -100,7 +117,7 @@ class Dropdown extends Component {
         }
 
         return this.props.options.map((option, index) =>{
-            return <Option key={option.key || index} onSelectHandler={this.onSelectHandler} option={option}/>
+            return <Option key={index} onSelectHandler={this.onSelectHandler} option={option}/>
         });
     }
 

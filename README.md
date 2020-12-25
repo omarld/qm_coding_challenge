@@ -39,7 +39,7 @@
 
 **12/25/2020**
 * 6:10 AM Conitued Building Layout
-* 6:40 AM Adding Styles to Main App, Row and Dropdown
+* 6:40 AM Adding Styles to Main App, Row and Dropdown, styling custom u li
 
 NEXT
 * Adding redux devtools extension

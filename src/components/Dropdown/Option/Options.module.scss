@@ -1,2 +1,9 @@
 @import 'styles/main.scss';
 
+.optionMain {
+    cursor: pointer;
+
+    &:hover {
+        font-weight: 700;
+    }
+}

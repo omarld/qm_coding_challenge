@@ -3,7 +3,7 @@
 .selectedItem {
     display: flex;
     width: 200px;
-    padding: 5px;
+    padding: 8px;
     border:1px solid $border-color-dark;
     border-radius: 5px;
 }
@@ -11,7 +11,7 @@
 .optionWrapper {
     background-color: $primary-background-color;
     position: absolute;
-    width: 210px;
+    width: 216px;
     margin: 0;
     ul {
         padding: 5px;
@@ -20,12 +20,9 @@
 
         li {
             display: flex;
+            padding: 0 8px;
+            margin: 15px 0;
         }
     }
 }
 
-
-
-// .selectedItem {
-//     // display: flex
-// }

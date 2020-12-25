@@ -14,19 +14,10 @@ export const Row = (props) =>{
         console.log("value selected: " + value)
     }
 
-    const prePostConditionTemplate = (preCondition, postCondition, type) =>{
+    const prePostConditionTemplate = (condition, type) =>{
         return (
-            <div>
-                <input placeholder="some input" type={type}/>
-                <input placeholder="some other input" type={type}/>
-            </div>  
+            <input placeholder="some input" type={type}/>
         )
-    }
-
-    const defaultInputTemplate = () =>{
-        return <Dropdown 
-            options={selectedCondition.operators} 
-            onSelectHandler={onSelectHandler}/>
     }
 
     return(
@@ -37,12 +28,15 @@ export const Row = (props) =>{
                     options={conditions} 
                     onSelectHandler={onSelectHandler}/>
             </div>
-            <div className="precond">
-                {(selectedOperator && selectedOperator.preCondition) ? 
-                    prePostConditionTemplate(selectedOperator.preCondition, selectedOperator.postCondition, selectedCondition.type) 
-                    : defaultInputTemplate()
-                }
-            </div>
+            {(selectedOperator && selectedOperator.preCondition) ? 
+                prePostConditionTemplate(selectedOperator.preCondition, selectedCondition.type) 
+                : null
+            }
+            <input placeholder="always input" type={selectedCondition.type}/>
+            {(selectedOperator && selectedOperator.postCondition) ? 
+                prePostConditionTemplate(selectedOperator.postCondition, selectedCondition.type) 
+                : null
+            }
         </div>
     )
 }

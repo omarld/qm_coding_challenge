@@ -37,6 +37,11 @@
     * Dropdown select detection
 * 8 AM Stopped 
 
+
+**12/2/2020**
+* 10:30 AM row and button custom layout 12 PM
+* 12 PM 
+
 **12/25/2020**
 * 6:10 AM Conitued Building Layout
 * 6:40 AM Adding Styles to Main App, Row and Dropdown, styling custom u li

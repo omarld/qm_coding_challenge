@@ -21,7 +21,8 @@
       width: 75px;
     }
 
-    &:hover, &:focus {
+    &:hover, 
+    &:focus {
       background-color: darken($primary-color, 20%);
       cursor: pointer;
     }
@@ -34,5 +35,12 @@
   
     &:active {
         transform: scale(0.99);
+    }
+
+    &:disabled {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: default;
     }
 }

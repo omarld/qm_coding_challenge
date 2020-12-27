@@ -12,7 +12,7 @@ const Button  = (props)=> {
     });
 
     return (
-        <button className={btnClasses}>{props.children}</button>
+        <button className={btnClasses} onClick={props.onClick} disabled={props.disabled}>{props.children}</button>
     )
 }
 

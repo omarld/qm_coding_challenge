@@ -69,11 +69,16 @@ export const Row = (props) =>{
                 options={selected.operators}
                 defaultSelectedIndex={0}
                 onSelectHandler={onOperatorSelectHandler}/>
-                
+            {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
+                <input placeholder="between input" type={selected.condition.type}/> 
+                : null
+            }
+
             {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
                 renderPrePostConditionTemplate(selected.selectedOperator.postCondition, selected.condition.type) 
                 : null
             }
+           
             {(selected.operators && selected.operators.postCondition) ? 
                 renderPrePostConditionTemplate() 
                 : null

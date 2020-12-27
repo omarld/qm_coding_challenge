@@ -2,12 +2,11 @@
 
 
 .mainContent {
-    // background-color: $primary-background-color;
     margin: 0 10%;
     
 }
 
-.rowsContainer div:nth-child(n+2) {
+.rowsContainer >div:nth-child(n+2) {
     margin-top: 10px;
 }
 

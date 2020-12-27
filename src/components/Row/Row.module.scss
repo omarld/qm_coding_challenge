@@ -10,8 +10,16 @@
     padding: 20px;
 }
 
+.inputContainers {
+    display: flex;
+    justify-content: space-between;
+    width:95%;
+}
+
 .remove {
-    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .prePostCondition {

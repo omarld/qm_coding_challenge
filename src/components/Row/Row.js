@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from 'components/Dropdown/Dropdown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Row.module.scss';
 
@@ -50,42 +52,44 @@ export const Row = (props) =>{
 
     return(
         <div className={styles.mainRow}>
-            <div className={styles.remove}>X</div>
-            <div>
-                <Dropdown 
-                    options={conditions} 
-                    defaultSelectedIndex={0}
-                    onSelectHandler={onSelectHandler}/>
+            <div className={styles.remove}>
+                <FontAwesomeIcon icon={faTrashAlt} />
             </div>
-            {(selected.selectedOperator && selected.selectedOperator.preCondition) ? 
-                renderPrePostConditionTemplate(selected.selectedOperator.preCondition, selected.condition.type) 
-                : null
-            }
-            {(selected.operators && selected.operators.preCondition) ? 
-                renderPrePostConditionTemplate() 
-                : null
-            }
-            <Dropdown
-                options={selected.operators}
-                defaultSelectedIndex={0}
-                onSelectHandler={onOperatorSelectHandler}/>
-            {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
-                <input placeholder="between input" type={selected.condition.type}/> 
-                : null
-            }
+            <div className={styles.inputContainers}>
+                <Dropdown 
+                        options={conditions} 
+                        defaultSelectedIndex={0}
+                        onSelectHandler={onSelectHandler}/>
+               
+                {(selected.selectedOperator && selected.selectedOperator.preCondition) ? 
+                    renderPrePostConditionTemplate(selected.selectedOperator.preCondition, selected.condition.type) 
+                    : null
+                }
+                {(selected.operators && selected.operators.preCondition) ? 
+                    renderPrePostConditionTemplate() 
+                    : null
+                }
+                <Dropdown
+                    options={selected.operators}
+                    defaultSelectedIndex={0}
+                    onSelectHandler={onOperatorSelectHandler}/>
+                {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
+                    <input placeholder="between input" type={selected.condition.type}/> 
+                    : null
+                }
 
-            {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
-                renderPrePostConditionTemplate(selected.selectedOperator.postCondition, selected.condition.type) 
-                : null
-            }
-           
-            {(selected.operators && selected.operators.postCondition) ? 
-                renderPrePostConditionTemplate() 
-                : null
-            }
-
-            {selected.condition && <input placeholder="always input" type={selected.condition.type}/> }
+                {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
+                    renderPrePostConditionTemplate(selected.selectedOperator.postCondition, selected.condition.type) 
+                    : null
+                }
             
+                {(selected.operators && selected.operators.postCondition) ? 
+                    renderPrePostConditionTemplate() 
+                    : null
+                }
+
+                {selected.condition && <input placeholder="always input" type={selected.condition.type}/> }
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import Dropdown from 'components/Dropdown/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -7,91 +8,132 @@ import styles from './Row.module.scss';
 
 import {getConditionByKey} from 'Services/SqlService';
 
-export const Row = (props) =>{
-    const { conditions } = props;
-
-    const [selected, setSelected] = useState({});
-
-    useEffect(() =>{
-        const selected = {
-            condition: conditions[0],
-            selectedOperator: conditions[0].operators[0],
-            operators: conditions[0].operators
+class Row extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedPredicate: null,
+            condition: null,
+            selectedOperator: null,
+            operators: null,
+            preConditionInputValue: null,
+            postConditionInputValue: null
         }
-        setSelected(selected);
-    }, []);
 
-    const onSelectHandler = (item) =>{
+        this.onSelectHandler = this.onSelectHandler.bind(this);
+        this.onClickRemove = this.onClickRemove.bind(this);
+        this.onOperatorSelectHandler = this.onOperatorSelectHandler.bind(this); 
+        this.onPreconditionChange = this.onPreconditionChange.bind(this);
+        this.onPostconditionChange = this.onPostconditionChange.bind(this);
+    }
+
+    componentDidMount() {
+        const selected = {
+            condition: this.props.conditions[0],
+            selectedOperator: this.props.conditions[0].operators[0],
+            operators: this.props.conditions[0].operators,
+            selectedPredicate: this.props.conditions[0].key
+        }
+        this.setState(selected);
+    }
+
+    onSelectHandler(item) {
         const condition = getConditionByKey(item.key);
         const selected = {
             condition,
             selectedOperator: condition.operators[0],
-            operators: condition.operators
+            operators: condition.operators,
+            selectedPredicate: condition.key
         }
-        setSelected(selected);
+        this.props.dispatchSelectedCondition({type: "SELECTED_OPTION", value: selected});
+        this.setState(selected);
     }
 
-    const renderPrePostConditionTemplate = (condition, type) =>{
-        return (
-            <div>
-                {condition && <span className={styles.prePostCondition}>{condition}</span> }
-                {!condition && <input placeholder="some input" type={type}/> }
+    onOperatorSelectHandler(item){
+        const temp = {
+            selectedOperator: item
+        }
+        this.setState(temp);
+    }
+
+    onClickRemove (event) {
+        event.preventDefault();
+        if(this.props.onRemoveRow && typeof this.props.onRemoveRow === "function"){
+            this.props.onRemoveRow();
+        }
+    }
+
+    onPreconditionChange(event){
+        this.setState({
+            preConditionInputValue: event.target.value
+        });
+    }
+
+    onPostconditionChange(event){
+        this.setState({
+            postConditionInputValue: event.target.value
+        });
+    }
+
+    render(){
+        let preInputName = null, postInputName = null;
+        if(this.state.selectedPredicate && this.state.selectedOperator){
+            preInputName = `preInput-${this.state.selectedPredicate}-${this.state.selectedOperator.value}-${this.props.index}`;
+            postInputName = `postInput-${this.state.selectedPredicate}-${this.state.selectedOperator.value}-${this.props.index}`;
+        }
+        
+
+        return(
+            <div className={styles.mainRow}>
+                <div className={styles.remove}>
+                    <a href="#" onClick={this.onClickRemove}><FontAwesomeIcon icon={faTrashAlt} /></a>
+                </div>
+                <form className={styles.inputContainers}>
+                    <Dropdown 
+                            options={this.props.conditions} 
+                            defaultSelectedIndex={0}
+                            onSelectHandler={this.onSelectHandler}/>
+                   
+                    {(this.state.selectedOperator && this.state.selectedOperator.preCondition) ? 
+                        <span className={styles.prePostCondition}>{this.state.selectedOperator.preCondition}</span> 
+                        : null
+                    }
+
+                    <Dropdown
+                        options={this.state.operators}
+                        defaultSelectedIndex={0}
+                        onSelectHandler={this.onOperatorSelectHandler}/>
+
+                    {(this.state.selectedOperator && this.state.selectedOperator.preCondition) ? 
+                        <input placeholder="between input" 
+                            name={preInputName} 
+                            value={this.state.preConditionInputValue}
+                            onChange={this.onPreconditionChange} 
+                            type={this.state.condition.type}/> 
+                        : null
+                    }
+    
+                    {(this.state.selectedOperator && this.state.selectedOperator.postCondition) ? 
+                        <span className={styles.prePostCondition}>{this.state.selectedOperator.postCondition}</span>
+                        : null
+                    }
+    
+                    {this.state.condition && <input name={postInputName} placeholder="always input"
+                        value={this.state.postConditionInputValue}
+                        onChange={this.onPostconditionChange} 
+                        type={this.state.condition.type}/> }
+                </form>
             </div>
         )
     }
-
-    const onOperatorSelectHandler = (item) =>{
-        console.log(item);
-        const temp = {
-            ...selected,
-            selectedOperator: item
-        }
-        console.log(temp);
-        setSelected(temp);
-    }
-
-    return(
-        <div className={styles.mainRow}>
-            <div className={styles.remove}>
-                <FontAwesomeIcon icon={faTrashAlt} />
-            </div>
-            <div className={styles.inputContainers}>
-                <Dropdown 
-                        options={conditions} 
-                        defaultSelectedIndex={0}
-                        onSelectHandler={onSelectHandler}/>
-               
-                {(selected.selectedOperator && selected.selectedOperator.preCondition) ? 
-                    renderPrePostConditionTemplate(selected.selectedOperator.preCondition, selected.condition.type) 
-                    : null
-                }
-                {(selected.operators && selected.operators.preCondition) ? 
-                    renderPrePostConditionTemplate() 
-                    : null
-                }
-                <Dropdown
-                    options={selected.operators}
-                    defaultSelectedIndex={0}
-                    onSelectHandler={onOperatorSelectHandler}/>
-                {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
-                    <input placeholder="between input" type={selected.condition.type}/> 
-                    : null
-                }
-
-                {(selected.selectedOperator && selected.selectedOperator.postCondition) ? 
-                    renderPrePostConditionTemplate(selected.selectedOperator.postCondition, selected.condition.type) 
-                    : null
-                }
-            
-                {(selected.operators && selected.operators.postCondition) ? 
-                    renderPrePostConditionTemplate() 
-                    : null
-                }
-
-                {selected.condition && <input placeholder="always input" type={selected.condition.type}/> }
-            </div>
-        </div>
-    )
 }
 
-export default Row;
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatchSelectedCondition: selected =>{
+            dispatch({type: "SELECTED_OPTION", value: selected});
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Row);

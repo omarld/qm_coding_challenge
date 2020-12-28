@@ -12,7 +12,7 @@ export class SessionSearch extends Component {
         this.conditions = getAllConditions();
         this.maxRowsAllowed  =  this.conditions.length;
         this.state = {
-            rowCount:  0,
+            rowCount:  1,
             rowConditions: [{
                 key:  "1",
                 conditions:  this.conditions
@@ -31,9 +31,21 @@ export class SessionSearch extends Component {
         });
 
         this.setState({
-             rowCount,
+            rowCount,
             rowConditions: newRows
         });
+    }
+
+    onRemoveRow = (index) =>{
+        if(index < 0 || this.state.rowCount === 1 )  return;
+
+        const rowCount = this.state.rowCount - 1;
+        const newRows =   [...this.state.rowConditions];
+        newRows.splice(index, 1, {});
+        this.setState({
+            rowCount,
+            rowConditions: newRows
+        })
     }
 
     render() {
@@ -43,9 +55,12 @@ export class SessionSearch extends Component {
         return (
             <section className={styles.mainContent} aria-label="search fields">
                 <div className={styles.rowsContainer}>
-                    {this.state.rowConditions.map((row, index) => (
-                        <Row key={index} conditions={row.conditions}/>
-                    ))}
+                    {this.state.rowConditions.map((row, index) => {
+                        if(row && row.conditions){
+                            return <Row key={index} index={index} conditions={row.conditions} onRemoveRow={() => this.onRemoveRow(index)}/>
+                        }
+                        }
+                    )}
                 </div>
                 <div className={styles.addBtnContainer}>
                     <Button color="primary" size="mid" onClick={this.onAndClick} disabled={disableAndBtn}>And</Button>

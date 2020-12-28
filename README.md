@@ -1,4 +1,9 @@
 
+### Getting Started
+* npm install
+* npm start
+    * go to: http://localhost:3000/
+
 ### Assumptions
 1. Requirements had the field 'Name' as stand alone, but in table there is only First and Last Name. I assume this is a typo, so I don't have a Name predicate but instead only First and Last name.
 

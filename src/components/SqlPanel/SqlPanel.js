@@ -8,10 +8,7 @@ const SqlPanel = (props) =>{
 
     return (
         <div className={styles.sqlMain}>
-            <pre>{`
-                var test = 'asdf'
-                ${results}
-            `}</pre>
+            {results && <pre>{`${results}`}</pre>}
         </div>
     )
 }

@@ -15,7 +15,7 @@
     * return list of available predicates along with its corresponding types 
 
 ### Questions
-1.
+1. Assumption, Name vs Firt Name due to table definition
 
 ### Time Tracking
 **12/23/2020**

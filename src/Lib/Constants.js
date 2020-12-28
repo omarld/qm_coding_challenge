@@ -3,45 +3,43 @@ export const PREDICATE_TYPES = {
     NUMERIC: "number"
 }
 
-export const PREDICATES = {
-    DOMAIN: { 
+export const PREDICATES = {}
+PREDICATES['domain'] = { 
         value: "Domain",
         type: PREDICATE_TYPES.STRING
-    },
-    SCREEN_WIDTH: { 
+    };
+PREDICATES['screen_width'] = { 
         value: "Screen Width", 
         type: PREDICATE_TYPES.NUMERIC 
-    },
-    SCREEN_HEIGHT: {
+    };
+PREDICATES['screen_height'] = {
         value: "Screen Height",
         type: PREDICATE_TYPES.NUMERIC
-    },
-    NUMBER_OF_VISITS: {
+    };
+PREDICATES['visits'] = {
         value: "# of Visits",
         type: PREDICATE_TYPES.NUMERIC
-    },
-    FIRST_NAME: {
-        value: "First",
+    };
+PREDICATES['user_first_name'] = {
+        value: "First Name",
         type: PREDICATE_TYPES.STRING
-    },
-    LAST_NAME: { 
+    };
+PREDICATES['user_last_name'] = { 
         value: "Last Name",
         type: PREDICATE_TYPES.STRING
-    },
-    NAME: {
-        value: "Name",
-        type: PREDICATE_TYPES.STRING
-    },
-    PAGE_RESPONSE_TIME: {
+    };
+
+PREDICATES['page_response'] = {
         value: "Page Response Time (ms)",
         type: PREDICATE_TYPES.NUMERIC
-    },
-    USER_EMAIL: {
+    };
+
+PREDICATES['user_email'] = {
         value: "User Email",
         type: PREDICATE_TYPES.STRING
-    },
-    PAGE_PATH: { 
+    };
+
+PREDICATES['path'] = { 
         value: "Page Path",
         type: PREDICATE_TYPES.STRING
-    }
-}
+    };

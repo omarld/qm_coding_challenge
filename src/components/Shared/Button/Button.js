@@ -6,9 +6,10 @@ var cx = classNames.bind(styles);
 
 const Button  = (props)=> {
 
-    const btnClasses = cx(styles.btn, {
+    const btnClasses = cx(styles.btn, props.className, {
         'btnPrimary': props.color && props.color.toLowerCase() === "primary",
-        "mid": props.size && props.size.toLowerCase() === "mid"
+        "mid": props.size && props.size.toLowerCase() === "mid",
+        "lg": props.size && props.size.toLowerCase() === "lg"
     });
 
     return (

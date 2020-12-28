@@ -33,6 +33,10 @@
       width: 75px;
     }
 
+    &.lg {
+      padding: 12px 20px;
+    }
+
     &:active {
         transform: scale(0.99);
     }

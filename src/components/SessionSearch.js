@@ -4,6 +4,8 @@ import Row from 'components/Row/Row';
 import styles from './SessionSearch.module.scss';
 import Button  from  'components/Shared/Button/Button';
 import SqlPanel from 'components/SqlPanel/SqlPanel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import Utils from 'Lib/Utils';
 import { getAllConditions } from 'Services/SqlService';
@@ -71,6 +73,7 @@ export class SessionSearch extends Component {
         
         return (
             <section className={styles.mainContent} aria-label="search fields">
+                <h1>Search for Sessions</h1>
                 <div className={styles.rowsContainer}>
                     {this.state.rowConditions.map((row, index) => {
                         if(row && row.conditions){
@@ -87,9 +90,11 @@ export class SessionSearch extends Component {
                     <span>Max Conditions Reached!</span>:  null}
                 </div>
                 <hr/>
-                <div>
-                    <Button color="primary" size="mid" onClick={this.onSearchClick} disabled={disableAndBtn}>Search</Button>
-                    <Button size="mid" onClick={this.onResetClick} disabled={disableAndBtn}>Reset</Button>
+                <div className={styles.searchResetButtons}>
+                    <Button color="primary" className={styles.searchButton} size="lg" onClick={this.onSearchClick} disabled={disableAndBtn}>
+                    <FontAwesomeIcon icon={faSearch} /> Search
+                    </Button>
+                    <Button size="mid" onClick={this.onResetClick} size="lg" disabled={disableAndBtn}>Reset</Button>
                 </div>
                 <SqlPanel results={this.state.sqlString}/>
                 

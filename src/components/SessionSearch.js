@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Row from 'components/Row/Row';
 import styles from './SessionSearch.module.scss';
 import Button  from  'components/Shared/Button/Button';
+import SqlPanel from 'components/SqlPanel/SqlPanel';
 
 import { getAllConditions } from 'Services/SqlService';
 
@@ -68,6 +69,12 @@ export class SessionSearch extends Component {
                     {(this.state.rowCount === this.maxRowsAllowed)  ? 
                     <span>Max Conditions Reached!</span>:  null}
                 </div>
+                <hr/>
+                <div>
+                    <Button color="primary" size="mid" onClick={this.onAndClick} disabled={disableAndBtn}>Search</Button>
+                    <Button size="mid" onClick={this.onAndClick} disabled={disableAndBtn}>Reset</Button>
+                </div>
+                <SqlPanel />
                 
             </section>
         )

@@ -141,7 +141,7 @@ class Row extends Component {
         return(
             <div className={styles.mainRow}>
                 <div className={styles.remove}>
-                    <a href="#" onClick={this.onClickRemove}><FontAwesomeIcon icon={faTrashAlt} /></a>
+                    <a href="#" onClick={this.onClickRemove}>&#x2715;</a>
                 </div>
                 <div className={styles.inputContainers}>
                     <Dropdown 

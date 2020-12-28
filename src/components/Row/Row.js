@@ -16,8 +16,8 @@ class Row extends Component {
             condition: null,
             selectedOperator: null,
             operators: null,
-            preConditionInputValue: null,
-            postConditionInputValue: null
+            preConditionInputValue: '',
+            postConditionInputValue: ''
         }
 
         this.onSelectHandler = this.onSelectHandler.bind(this);
@@ -43,7 +43,7 @@ class Row extends Component {
             postConditionInputValue: this.state.postConditionInputValue,
             index: this.props.index
         };
-        this.props.dispatchSelectedCondition(clause);
+        this.props.dispatchSelectedCondition({index: this.props.index, clause});
     }
 
     onSelectHandler(item) {
@@ -96,7 +96,7 @@ class Row extends Component {
             postConditionInputValue: event.target.value,
             index: this.props.index
         };
-        this.props.dispatchSelectedCondition(clause);
+        this.props.dispatchSelectedCondition({index: this.props.index, clause});
     }
 
     // dispatchSelected() {

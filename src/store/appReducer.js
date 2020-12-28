@@ -1,7 +1,7 @@
 
 const intialState = {
     selectedOption: null,
-    clause: []
+    clauses: []
 }
 
 const appReducer = (state= intialState, action) =>{
@@ -17,16 +17,16 @@ const appReducer = (state= intialState, action) =>{
             }
         case "UPDATE_SQL_CLAUSE":
             console.log("SQL Update value selected is from redux: " + action.value);
-            const newClause = [...state.clause];
-            if(newClause.length > 0){
-                newClause.splice(action.value.index, 1, action.value);
+            const newClauses = [...state.clauses];
+            if(newClauses.length > 0){
+                newClauses.splice(action.value.index, 1, action.value.clause);
             } else {
-                newClause.push(action.value);
+                newClauses.push(action.value.clause);
             }
             
             return {
                 ...state,
-                clause: newClause
+                clauses: newClauses
             }
         default:
             return {...state}

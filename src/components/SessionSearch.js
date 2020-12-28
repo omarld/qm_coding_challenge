@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import Row from 'components/Row/Row';
 import styles from './SessionSearch.module.scss';
 import Button  from  'components/Shared/Button/Button';
 import SqlPanel from 'components/SqlPanel/SqlPanel';
 
+import Utils from 'Lib/Utils';
 import { getAllConditions } from 'Services/SqlService';
 
 export class SessionSearch extends Component {
@@ -17,8 +19,12 @@ export class SessionSearch extends Component {
             rowConditions: [{
                 key:  "1",
                 conditions:  this.conditions
-            }]
+            }],
+            sqlString: null
         }
+
+        this.onSearchClick = this.onSearchClick.bind(this);
+        this.onResetClick = this.onResetClick(this);
     }
 
     onAndClick = () =>{
@@ -47,6 +53,17 @@ export class SessionSearch extends Component {
             rowCount,
             rowConditions: newRows
         })
+
+        //delete from redux store by using empty selected object
+        this.props.dispatchSelectedCondition({index, selected: {}});
+    }
+
+    onSearchClick (){
+       this.setState({sqlString: Utils.formatSql(this.props.clauses)});
+    }
+
+    onResetClick(){
+        console.log("reset!");
     }
 
     render() {
@@ -71,14 +88,28 @@ export class SessionSearch extends Component {
                 </div>
                 <hr/>
                 <div>
-                    <Button color="primary" size="mid" onClick={this.onAndClick} disabled={disableAndBtn}>Search</Button>
-                    <Button size="mid" onClick={this.onAndClick} disabled={disableAndBtn}>Reset</Button>
+                    <Button color="primary" size="mid" onClick={this.onSearchClick} disabled={disableAndBtn}>Search</Button>
+                    <Button size="mid" onClick={this.onResetClick} disabled={disableAndBtn}>Reset</Button>
                 </div>
-                <SqlPanel />
+                <SqlPanel results={this.state.sqlString}/>
                 
             </section>
         )
     }
 }
 
-export default SessionSearch;
+const mapStateToProps = state => {
+    return {
+        clauses: state.clauses
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatchSelectedCondition: selected =>{
+            dispatch({type: "UPDATE_SQL_CLAUSE", value: selected});
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SessionSearch);

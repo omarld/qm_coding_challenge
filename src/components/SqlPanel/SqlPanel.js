@@ -4,11 +4,14 @@ import styles from './SqlPanel.module.scss';
 
 const SqlPanel = (props) =>{
 
+    const {results} = props;
+
     return (
         <div className={styles.sqlMain}>
-            <code>{`
+            <pre>{`
                 var test = 'asdf'
-            `}</code>
+                ${results}
+            `}</pre>
         </div>
     )
 }

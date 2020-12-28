@@ -35,6 +35,15 @@ class Row extends Component {
             selectedPredicate: this.props.conditions[0].key
         }
         this.setState(selected);
+
+        const clause = {
+            selectedPredicate: this.props.conditions[0].key,
+            selectedOperator: this.props.conditions[0].operators[0],
+            preConditionInputValue: this.state.preConditionInputValue,
+            postConditionInputValue: this.state.postConditionInputValue,
+            index: this.props.index
+        };
+        this.props.dispatchSelectedCondition(clause);
     }
 
     onSelectHandler(item) {
@@ -45,7 +54,6 @@ class Row extends Component {
             operators: condition.operators,
             selectedPredicate: condition.key
         }
-        this.props.dispatchSelectedCondition({type: "SELECTED_OPTION", value: selected});
         this.setState(selected);
     }
 
@@ -67,13 +75,40 @@ class Row extends Component {
         this.setState({
             preConditionInputValue: event.target.value
         });
+        const clause = {
+            selectedPredicate: this.state.selectedPredicate,
+            selectedOperator: this.state.selectedOperator,
+            preConditionInputValue: event.target.value,
+            postConditionInputValue: this.state.postConditionInputValue,
+            index: this.props.index
+        };
+        this.props.dispatchSelectedCondition(clause);
     }
 
     onPostconditionChange(event){
         this.setState({
             postConditionInputValue: event.target.value
         });
+        const clause = {
+            selectedPredicate: this.state.selectedPredicate,
+            selectedOperator: this.state.selectedOperator,
+            preConditionInputValue: this.state.preConditionInputValue,
+            postConditionInputValue: event.target.value,
+            index: this.props.index
+        };
+        this.props.dispatchSelectedCondition(clause);
     }
+
+    // dispatchSelected() {
+    //     const clause = {
+    //         selectedPredicate: this.state.selectedPredicate,
+    //         selectedOperator: this.state.selectedOperator,
+    //         preConditionInputValue: this.state.preConditionInputValue,
+    //         postConditionInputValue: this.state.postConditionInputValue,
+    //         index: this.props.index
+    //     };
+    //     // this.props.dispatchSelectedCondition(clause);
+    // }
 
     render(){
         let preInputName = null, postInputName = null;
@@ -88,7 +123,7 @@ class Row extends Component {
                 <div className={styles.remove}>
                     <a href="#" onClick={this.onClickRemove}><FontAwesomeIcon icon={faTrashAlt} /></a>
                 </div>
-                <form className={styles.inputContainers}>
+                <div className={styles.inputContainers}>
                     <Dropdown 
                             options={this.props.conditions} 
                             defaultSelectedIndex={0}
@@ -122,7 +157,7 @@ class Row extends Component {
                         value={this.state.postConditionInputValue}
                         onChange={this.onPostconditionChange} 
                         type={this.state.condition.type}/> }
-                </form>
+                </div>
             </div>
         )
     }
@@ -131,7 +166,7 @@ class Row extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         dispatchSelectedCondition: selected =>{
-            dispatch({type: "SELECTED_OPTION", value: selected});
+            dispatch({type: "UPDATE_SQL_CLAUSE", value: selected});
         }
     }
 };

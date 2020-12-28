@@ -49,7 +49,6 @@ export class SessionSearch extends Component {
     }
 
     render() {
-
         const disableAndBtn = this.state.rowCount === this.maxRowsAllowed ? "disabled": null;
         
         return (

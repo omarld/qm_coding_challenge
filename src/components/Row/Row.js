@@ -95,14 +95,14 @@ class Row extends Component {
         this.setState({
             preConditionInputValue: event.target.value
         });
-        this.dispatchSelected(event.target.value, null);
+        this.dispatchSelected(event.target.value, this.state.postConditionInputValue);
     }
 
     onPostconditionChange(event){
         this.setState({
             postConditionInputValue: event.target.value
         });
-        this.dispatchSelected(null, event.target.value);
+        this.dispatchSelected(this.state.preConditionInputValue, event.target.value);
     }
 
     dispatchSelected(preConditionValue, postConditionValue) {

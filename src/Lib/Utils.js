@@ -2,8 +2,8 @@
 const OPERATOR_TO_STRING = {
     "equals": "=",
     "contains": "LIKE",
-    "starts with": "=^",
-    "in list": "=%",
+    "starts with": "LIKE",
+    "in list": "IN",
     "between": "BETWEEN",
     "greater than": ">",
     "less than": "<"
@@ -22,10 +22,28 @@ FROM session`;
     clause.forEach((item, index) =>{
         if(item){
             const and = counter === 0 ? 'WHERE' : 'AND';
-            const postConditionValue = item.type === "number" ? item.postConditionInputValue : `"${item.postConditionInputValue}"`
-            counter++;
+            let postConditionValue = null;
+
+            let preConditionValue = null;
+            if(item.selectedOperator && item.selectedOperator.preCondition){
+                preConditionValue = item.type === "number" ? `${item.preConditionInputValue} AND` : `'${item.preConditionInputValue}' AND`
+            }
+
+            switch(item.selectedOperator.value){
+                case 'contains':
+                    postConditionValue = `"%${item.postConditionInputValue}%"`;
+                    break;
+                case 'starts with':
+                    postConditionValue = `"${item.postConditionInputValue}%"`;
+                    break;
+                default:
+                    postConditionValue = item.type === "number" ? item.postConditionInputValue : `'${item.postConditionInputValue}'`;
+            }
+            
             sqlString += `
-${and} ${item.selectedPredicate} ${OPERATOR_TO_STRING[item.selectedOperator.value]} ${postConditionValue}`
+${and} ${item.selectedPredicate} ${OPERATOR_TO_STRING[item.selectedOperator.value]} ${preConditionValue || ''} ${postConditionValue}`;
+            
+            counter++;
         }
     });
 

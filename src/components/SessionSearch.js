@@ -22,11 +22,12 @@ export class SessionSearch extends Component {
                 key:  "1",
                 conditions:  this.conditions
             }],
+            toggleReset: false,
             sqlString: null
         }
 
         this.onSearchClick = this.onSearchClick.bind(this);
-        this.onResetClick = this.onResetClick(this);
+        this.onResetClick = this.onResetClick.bind(this);
     }
 
     onAndClick = () =>{
@@ -61,11 +62,22 @@ export class SessionSearch extends Component {
     }
 
     onSearchClick (){
-       this.setState({sqlString: Utils.formatSql(this.props.clauses)});
+       this.setState({sqlString: Utils.sqlBuilder(this.props.clauses)});
     }
 
     onResetClick(){
-        console.log("reset!");
+        this.setState({
+            rowCount: 1,
+            rowConditions: [{
+                key:  "1",
+                conditions:  this.conditions
+            }],
+            toggleReset: !this.state.toggleReset,
+            sqlString: ''
+        });
+
+        //index null is to clear all
+        this.props.dispatchSelectedCondition({index: null, selected: {}});
     }
 
     render() {
@@ -77,7 +89,7 @@ export class SessionSearch extends Component {
                 <div className={styles.rowsContainer}>
                     {this.state.rowConditions.map((row, index) => {
                         if(row && row.conditions){
-                            return <Row key={index} index={index} conditions={row.conditions} onRemoveRow={() => this.onRemoveRow(index)}/>
+                            return <Row key={index} reset={this.state.toggleReset} index={index} conditions={row.conditions} onRemoveRow={() => this.onRemoveRow(index)}/>
                         }
                         }
                     )}
@@ -94,10 +106,9 @@ export class SessionSearch extends Component {
                     <Button color="primary" className={styles.searchButton} size="lg" onClick={this.onSearchClick} disabled={disableAndBtn}>
                     <FontAwesomeIcon icon={faSearch} /> Search
                     </Button>
-                    <Button size="mid" onClick={this.onResetClick} size="lg" disabled={disableAndBtn}>Reset</Button>
+                    <Button size="mid" onClick={this.onResetClick} size="lg">Reset</Button>
                 </div>
                 <SqlPanel results={this.state.sqlString}/>
-                
             </section>
         )
     }

@@ -11,6 +11,18 @@
     padding: 8px;
     border: 1px solid #b4bcc1;
     border-radius: 5px;
+
+    &:hover, 
+    &:focus {
+      background-color: darken(#b4bcc1, 10%);
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: 1px solid lighten(#b4bcc1, 5%);
+      border-radius: 5px;
+      outline-offset: -4px;
+    }
   
     &.btnPrimary {
       background-color: $primary-color;
@@ -18,7 +30,7 @@
 
       &:hover, 
       &:focus {
-        background-color: darken($primary-color, 20%);
+        background-color: darken($primary-color, 10%);
         cursor: pointer;
       }
 

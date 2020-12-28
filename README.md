@@ -50,6 +50,7 @@
 
 **12/28/2020**
 * 7:30 AM creating results section
+* 10 AM building sql builder
 
 NEXT
 * Adding redux devtools extension

@@ -35,6 +35,12 @@ class Dropdown extends Component {
                 selected: this.props.options[this.props.defaultSelectedIndex].value
             });
         }
+
+        if(prevProp.reset != this.props.reset){
+            this.setState({
+                selected: this.props.options[this.props.defaultSelectedIndex].value
+            });
+        }
     }
 
     componentWillUnmount(){

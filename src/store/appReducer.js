@@ -10,13 +10,18 @@ const appReducer = (state= intialState, action) =>{
 
     switch(type){
         case "SELECTED_OPTION":
-            console.log("OPTION value selected is from redux: " + action.value);
             return {
                 ...state,
                 selectedOption: action.value
             }
         case "UPDATE_SQL_CLAUSE":
-            console.log("SQL Update value selected is from redux: " + action.value);
+            if(action.value.index == null){
+                return {
+                    ...state,
+                    clauses: []
+                }
+            }
+
             const newClauses = [...state.clauses];
             if(newClauses.length > 0){
                 newClauses.splice(action.value.index, 1, action.value.clause);

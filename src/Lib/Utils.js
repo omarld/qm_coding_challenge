@@ -9,8 +9,8 @@ const OPERATOR_TO_STRING = {
     "less than": "<"
 }
 
-const formatSql = (clause) =>{
-    if(!clause || !Array.isArray(clause)) return;
+const sqlBuilder = (clause) =>{
+    if(!clause || !Array.isArray(clause)) return '';
 
     let counter = 0;
     let sqlString = 
@@ -31,10 +31,10 @@ FROM session`;
 
             switch(item.selectedOperator.value){
                 case 'contains':
-                    postConditionValue = `"%${item.postConditionInputValue}%"`;
+                    postConditionValue = `'%${item.postConditionInputValue}%'`;
                     break;
                 case 'starts with':
-                    postConditionValue = `"${item.postConditionInputValue}%"`;
+                    postConditionValue = `'${item.postConditionInputValue}%'`;
                     break;
                 case 'in list':
                         const inList = item.postConditionInputValue.split(' ');
@@ -66,5 +66,5 @@ ${and} ${item.selectedPredicate} ${OPERATOR_TO_STRING[item.selectedOperator.valu
 }
 
 export default {
-    formatSql
+    sqlBuilder
 }

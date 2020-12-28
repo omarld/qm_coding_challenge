@@ -47,6 +47,19 @@ class Row extends Component {
         this.props.dispatchSelectedCondition({index: this.props.index, clause});
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.reset != this.props.reset){
+            this.setState({
+                condition: this.props.conditions[0],
+                selectedOperator: this.props.conditions[0].operators[0],
+                operators: this.props.conditions[0].operators,
+                selectedPredicate: this.props.conditions[0].key,
+                preConditionInputValue: '',
+                postConditionInputValue: ''
+            });
+        }
+    }
+
     onSelectHandler(item) {
         const condition = getConditionByKey(item.key);
         const selected = {
@@ -59,9 +72,9 @@ class Row extends Component {
         const clause = {
             selectedPredicate: condition.key,
             selectedOperator: condition.operators[0],
-            preConditionInputValue: this.state.preConditionInputValue,
-            postConditionInputValue: this.state.postConditionInputValue,
-            type: condition.operators[0],
+            preConditionInputValue: '',
+            postConditionInputValue: '',
+            type: condition.type,
             index: this.props.index
         };
         this.props.dispatchSelectedCondition({index: this.props.index, clause});
@@ -77,7 +90,7 @@ class Row extends Component {
             selectedOperator: item,
             preConditionInputValue: this.state.preConditionInputValue,
             postConditionInputValue: this.state.postConditionInputValue,
-            type: this.state.condition.key,
+            type: this.state.condition.type,
             index: this.props.index
         };
         this.props.dispatchSelectedCondition({index: this.props.index, clause});
@@ -134,6 +147,7 @@ class Row extends Component {
                     <Dropdown 
                             options={this.props.conditions} 
                             defaultSelectedIndex={0}
+                            reset={this.props.reset}
                             onSelectHandler={this.onSelectHandler}/>
                    
                     {(this.state.selectedOperator && this.state.selectedOperator.preCondition) ? 
@@ -144,6 +158,7 @@ class Row extends Component {
                     <Dropdown
                         options={this.state.operators}
                         defaultSelectedIndex={0}
+                        reset={this.props.reset}
                         onSelectHandler={this.onOperatorSelectHandler}/>
 
                     {(this.state.selectedOperator && this.state.selectedOperator.preCondition) ? 

@@ -47,7 +47,10 @@ export class SessionSearch extends Component {
     }
 
     onRemoveRow = (index) =>{
-        if(index < 0 || this.state.rowCount === 1 )  return;
+        if(index < 0 || this.state.rowCount === 1 )  {
+            this.onResetClick();
+            return
+        };
 
         const rowCount = this.state.rowCount - 1;
         const newRows =   [...this.state.rowConditions];

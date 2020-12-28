@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Option from './Option/Option';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
 
 import styles from './Dropdown.module.scss';
 
@@ -93,10 +97,12 @@ class Dropdown extends Component {
 
     renderSelect(){
         const items = this.getItems();
+        const chevronIcon = this.state.open ? faChevronUp : faChevronDown;
         return (
             <div className={styles.selectMain}>
                 <div className={styles.selectedItem} onClick={this.onSelectClick}>
                     <span>{this.state.selected || "Select"}</span>
+                    <div><FontAwesomeIcon icon={chevronIcon} /></div>
                 </div>
                 <div className={styles.optionWrapper}>
                     {this.state.open && <ul>{items}</ul>}

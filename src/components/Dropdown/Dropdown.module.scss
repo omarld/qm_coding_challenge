@@ -2,6 +2,7 @@
 
 .selectedItem {
     display: flex;
+    justify-content: space-between;
     width: 220px;
     padding: 8px;
     border:1px solid $border-color-dark;

@@ -65,6 +65,8 @@ ${and} ${item.selectedPredicate} ${OPERATOR_TO_STRING[item.selectedOperator.valu
     return sqlString;
 }
 
-export default {
+const Utils = {
     sqlBuilder
 }
+
+export default Utils;

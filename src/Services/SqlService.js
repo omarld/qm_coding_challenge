@@ -26,7 +26,8 @@ export const getAllConditions = () => {
                 key: key,
                 value: predicate.value,
                 type: predicate.type,
-                operators: TypeToOperatorMapping[predicate.type]
+                operators: TypeToOperatorMapping[predicate.type],
+                placeHolder:  predicate.placeHolder
             }
         );
     }
@@ -41,6 +42,7 @@ export const getConditionByKey = (key) => {
         key: key,
         value: predicate.value,
         type: predicate.type,
-        operators: TypeToOperatorMapping[predicate.type]
+        operators: TypeToOperatorMapping[predicate.type],
+        placeHolder:  predicate.placeHolder
     };
 }

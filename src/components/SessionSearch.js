@@ -91,6 +91,7 @@ export class SessionSearch extends Component {
                         if(row && row.conditions){
                             return <Row key={index} reset={this.state.toggleReset} index={index} conditions={row.conditions} onRemoveRow={() => this.onRemoveRow(index)}/>
                         }
+                        return null;
                         }
                     )}
                 </div>
@@ -106,7 +107,7 @@ export class SessionSearch extends Component {
                     <Button color="primary" className={styles.searchButton} size="lg" onClick={this.onSearchClick} disabled={disableAndBtn}>
                     <FontAwesomeIcon icon={faSearch} /> Search
                     </Button>
-                    <Button size="mid" onClick={this.onResetClick} size="lg">Reset</Button>
+                    <Button onClick={this.onResetClick} size="lg">Reset</Button>
                 </div>
                 <SqlPanel results={this.state.sqlString}/>
             </section>

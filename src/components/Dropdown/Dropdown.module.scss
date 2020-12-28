@@ -2,7 +2,7 @@
 
 .selectedItem {
     display: flex;
-    width: 200px;
+    width: 220px;
     padding: 8px;
     border:1px solid $border-color-dark;
     border-radius: 5px;
@@ -11,7 +11,7 @@
 .optionWrapper {
     background-color: $primary-background-color;
     position: absolute;
-    width: 216px;
+    width: 230px;
     margin: 0;
     ul {
         padding: 5px;

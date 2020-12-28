@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import Dropdown from 'components/Dropdown/Dropdown';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Row.module.scss';
 
@@ -48,7 +46,7 @@ class Row extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.reset != this.props.reset){
+        if(prevProps.reset !== this.props.reset){
             this.setState({
                 condition: this.props.conditions[0],
                 selectedOperator: this.props.conditions[0].operators[0],
@@ -141,7 +139,7 @@ class Row extends Component {
         return(
             <div className={styles.mainRow}>
                 <div className={styles.remove}>
-                    <a href="#" onClick={this.onClickRemove}>&#x2715;</a>
+                    <button onClick={this.onClickRemove}>&#x2715;</button>
                 </div>
                 <div className={styles.inputContainers}>
                     <Dropdown 
@@ -162,7 +160,7 @@ class Row extends Component {
                         onSelectHandler={this.onOperatorSelectHandler}/>
 
                     {(this.state.selectedOperator && this.state.selectedOperator.preCondition) ? 
-                        <input placeholder="between input" 
+                        <input placeholder={this.state.condition.placeHolder}
                             name={preInputName} 
                             value={this.state.preConditionInputValue}
                             onChange={this.onPreconditionChange} 
@@ -175,7 +173,8 @@ class Row extends Component {
                         : null
                     }
     
-                    {this.state.condition && <input name={postInputName} placeholder="always input"
+                    {this.state.condition && <input name={postInputName} 
+                        placeholder={this.state.condition.placeHolder}
                         value={this.state.postConditionInputValue}
                         onChange={this.onPostconditionChange} 
                         type={this.state.condition.type}/> }

@@ -1,4 +1,12 @@
 
+### Assumptions
+1. Requirements had the field 'Name' as stand alone, but in table there is only First and Last Name. I assume this is a typo, so I don't have a Name predicate but instead only First and Last name.
+
+### Things I would do different
+2. More valition on user inputs. 
+3. Sql Valition when contructing SQL statement.
+4. UI Unit tests
+
 ### Notes
 
 * Mapped Predicate to type and condition
@@ -14,48 +22,51 @@
 * Service
     * return list of available predicates along with its corresponding types 
 
-### Questions
-1. Assumption, Name vs Firt Name due to table definition
-2. More valition on user inputs. 
-3. Sql Valition when contructing SQL statement.
 
 ### Time Tracking
 **12/23/2020**
 * 6 AM Initial Requirements Review
-* 6:30 AM 
+* 30 min
     * react project initial build
     * project planning (layout, ui components, data structure)
-* 6:50 AM
+* 10 min
     * Creating Prodicate Service, Object mapping
-* 7:30 AM
+* 40 min
     * Creating Dropdown component
     * wiring redux store
     * Created Main Session Search component, and imported Dropdown Component (basic wiring)
-* 8:10 AM Stopped
 
 **12/24/2020**
-* 6:05 AM Building Session Search Layout
-    * 6:15 AM Row Component layout
-    * Dropdown select detection
-* 8 AM Stopped 
+* 6 AM Building Session Search Layout
+* 1 hr 45 min 
+    * Row Component layout
+    * Dropdown select detection 
 
 **12/25/2020**
-* 6:10 AM Conitued Building Layout
-* 6:40 AM Adding Styles to Main App, Row and Dropdown, styling custom u li
-* 8 AM adding Predicate Change selection handler to update UI
+* 6:10 AM start
+* 30 min
+    * Conitued Building Layout
+* 1 hr 20 min
+    * Adding Styles to Main App, Row and Dropdown, styling custom u li
+    * adding Predicate Change selection handler to update UI
 
 **12/27/2020**
-* 10:30 AM row and button custom layout 12 PM
-* 12 PM 4 PM - structuring for applying predicate
+* 10:30 AM 
+* 1 hr 30 min 
+    * row and button custom layout 12 PM
+* 3hr
+    * structuring for applying predicate
 
 **12/28/2020**
-* 7:30 AM creating results section
-* 10 AM building sql builder
-* 1 PM Finished
+* 7:30 AM start
+* 2 hrs
+    * creating results section
+* 2 hr
+    * building sql builder
 
-NEXT
-* Adding redux devtools extension
-* Create Session Search Layout
+* 1 hr 
+    * finishing touches, cleanup
+
 
 ### `npm start`
 

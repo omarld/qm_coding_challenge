@@ -36,6 +36,21 @@ FROM session`;
                 case 'starts with':
                     postConditionValue = `"${item.postConditionInputValue}%"`;
                     break;
+                case 'in list':
+                        const inList = item.postConditionInputValue.split(' ');
+                        postConditionValue = '(';
+
+                        inList.forEach((str, index) =>{
+
+                            //prefer this approach rather than nesting if conditions. Easier to read
+                            if(str && str !== '' && item.type === "number"){
+                                postConditionValue += (index === inList.length -1) ? `${str}`: `${str},`;   
+                            } else if(str && str !== ''){
+                                postConditionValue += (index === inList.length -1) ? `'${str}'`: `'${str}',`
+                            }
+                        });
+                        postConditionValue += ')';
+                        break;
                 default:
                     postConditionValue = item.type === "number" ? item.postConditionInputValue : `'${item.postConditionInputValue}'`;
             }

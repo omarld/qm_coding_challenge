@@ -16,6 +16,8 @@
 
 ### Questions
 1. Assumption, Name vs Firt Name due to table definition
+2. More valition on user inputs. 
+3. Sql Valition when contructing SQL statement.
 
 ### Time Tracking
 **12/23/2020**
